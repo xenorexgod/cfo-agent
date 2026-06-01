@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .models import FinanceData
 from .reports import REPORTS, render_report
+from .zoho_books import build_client_from_env
 
 
 def load_finance_data(path: Path) -> FinanceData:
@@ -38,6 +39,25 @@ def list_reports(_: argparse.Namespace) -> int:
     return 0
 
 
+def zoho_organizations(_: argparse.Namespace) -> int:
+    client = build_client_from_env()
+    print(json.dumps(client.list_organizations(), indent=2, sort_keys=True))
+    return 0
+
+
+def zoho_invoices(args: argparse.Namespace) -> int:
+    client = build_client_from_env()
+    params = {}
+    if args.status:
+        params["status"] = args.status
+    if args.from_date:
+        params["date_start"] = args.from_date
+    if args.to_date:
+        params["date_end"] = args.to_date
+    print(json.dumps(client.list_invoices(**params), indent=2, sort_keys=True))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="cfo-agent", description="Generate CFO/CFA operating reports.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -50,6 +70,15 @@ def build_parser() -> argparse.ArgumentParser:
 
     list_parser = subparsers.add_parser("list-reports", help="List available report identifiers.")
     list_parser.set_defaults(func=list_reports)
+
+    organizations_parser = subparsers.add_parser("zoho-organizations", help="List Zoho Books organizations using environment credentials.")
+    organizations_parser.set_defaults(func=zoho_organizations)
+
+    invoices_parser = subparsers.add_parser("zoho-invoices", help="List Zoho Books invoices for the configured organization.")
+    invoices_parser.add_argument("--status", help="Optional Zoho invoice status filter, such as overdue or paid.")
+    invoices_parser.add_argument("--from-date", help="Optional invoice start date filter in YYYY-MM-DD format.")
+    invoices_parser.add_argument("--to-date", help="Optional invoice end date filter in YYYY-MM-DD format.")
+    invoices_parser.set_defaults(func=zoho_invoices)
     return parser
 
 
