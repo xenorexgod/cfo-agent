@@ -1,0 +1,60 @@
+name: Zoho Books Healthcheck
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/zoho-healthcheck.yml"
+      - "cfo_agent/zoho_books.py"
+      - "cfo_agent/cli.py"
+      - "tests/test_zoho_books.py"
+
+jobs:
+  zoho-books:
+    runs-on: ubuntu-latest
+    env:
+      ZOHO_BOOKS_CLIENT_ID: ${{ secrets.ZOHO_BOOKS_CLIENT_ID }}
+      ZOHO_BOOKS_CLIENT_SECRET: ${{ secrets.ZOHO_BOOKS_CLIENT_SECRET }}
+      ZOHO_BOOKS_REFRESH_TOKEN: ${{ secrets.ZOHO_BOOKS_REFRESH_TOKEN }}
+      ZOHO_BOOKS_ORGANIZATION_ID: ${{ secrets.ZOHO_BOOKS_ORGANIZATION_ID }}
+      ZOHO_BOOKS_ACCOUNTS_URL: ${{ secrets.ZOHO_BOOKS_ACCOUNTS_URL }}
+      ZOHO_BOOKS_API_DOMAIN: ${{ secrets.ZOHO_BOOKS_API_DOMAIN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run unit tests
+        run: python -m unittest
+
+      - name: Validate required secrets are present
+        run: |
+          python - <<'PY'
+          import os
+          required = [
+              "ZOHO_BOOKS_CLIENT_ID",
+              "ZOHO_BOOKS_CLIENT_SECRET",
+              "ZOHO_BOOKS_REFRESH_TOKEN",
+          ]
+          optional = [
+              "ZOHO_BOOKS_ORGANIZATION_ID",
+              "ZOHO_BOOKS_ACCOUNTS_URL",
+              "ZOHO_BOOKS_API_DOMAIN",
+          ]
+          missing = [name for name in required if not os.getenv(name)]
+          for name in required + optional:
+              print(f"{name}: {'set' if os.getenv(name) else 'missing'}")
+          if missing:
+              raise SystemExit(f"Missing required secrets: {', '.join(missing)}")
+          PY
+
+      - name: Test Zoho token refresh and organizations API
+        run: python -m cfo_agent.cli zoho-organizations
+
+      - name: Test Zoho invoices API when organization id is configured
+        if: env.ZOHO_BOOKS_ORGANIZATION_ID != ''
+        run: python -m cfo_agent.cli zoho-invoices
