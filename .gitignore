@@ -5,5 +5,7 @@ __pycache__/
 .mypy_cache/
 .venv/
 venv/
-reports/
 .env
+.env.*
+!.env.example
+reports/
