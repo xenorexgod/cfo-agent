@@ -1,0 +1,144 @@
+{
+  "company": "Suits Workspaces",
+  "report_date": "1 June 2026",
+  "report_month": "May 2026",
+  "monthly_revenue": 2800000,
+  "collected_revenue": 2100000,
+  "monthly_ebitda": 300000,
+  "founder_loan": 3500000,
+  "related_party_resolutions_pending": true,
+  "cash": {
+    "closing_cash": 1200000,
+    "security_deposits_held": 500000,
+    "statutory_reserve_required": 300000,
+    "expected_collections_7d": 600000,
+    "fixed_obligations_7d": 510000,
+    "monthly_fixed_obligations": 2200000,
+    "overdraft_available": 0
+  },
+  "receivables": [
+    {
+      "client": "Client Alpha",
+      "invoice_number": "INV-2026-051",
+      "centre": "Centre A",
+      "invoice_amount": 650000,
+      "collected_amount": 200000,
+      "gst_amount": 99152,
+      "days_overdue": 18,
+      "owner": "Finance Executive",
+      "status": "Follow-up due"
+    },
+    {
+      "client": "Client Beta",
+      "invoice_number": "INV-2026-058",
+      "centre": "Centre B",
+      "invoice_amount": 550000,
+      "collected_amount": 0,
+      "gst_amount": 83900,
+      "days_overdue": 42,
+      "owner": "Account Manager",
+      "status": "Escalate"
+    },
+    {
+      "client": "Client Gamma",
+      "invoice_number": "INV-2026-063",
+      "centre": "Centre C",
+      "invoice_amount": 800000,
+      "collected_amount": 0,
+      "gst_amount": 122034,
+      "days_overdue": 67,
+      "owner": "Founder",
+      "status": "Founder review"
+    }
+  ],
+  "payables": [
+    {
+      "vendor": "Monthly Rent",
+      "category": "Rent",
+      "amount": 220000,
+      "days_overdue": 0,
+      "criticality": "Critical"
+    },
+    {
+      "vendor": "Housekeeping Vendor",
+      "category": "Operations",
+      "amount": 180000,
+      "days_overdue": 14,
+      "criticality": "Critical"
+    },
+    {
+      "vendor": "Internet Provider",
+      "category": "Connectivity",
+      "amount": 75000,
+      "days_overdue": 5,
+      "criticality": "Critical"
+    },
+    {
+      "vendor": "Fit-out Contractor",
+      "category": "Capex",
+      "amount": 425000,
+      "days_overdue": 31,
+      "criticality": "Strategic"
+    }
+  ],
+  "centres": [
+    {
+      "name": "Centre A",
+      "revenue": 1200000,
+      "direct_costs": 780000,
+      "seat_capacity": 180,
+      "occupied_seats": 142,
+      "capex": 9000000,
+      "overdue_receivables": 450000,
+      "break_even_occupancy_pct": 62
+    },
+    {
+      "name": "Centre B",
+      "revenue": 1000000,
+      "direct_costs": 680000,
+      "seat_capacity": 150,
+      "occupied_seats": 118,
+      "capex": 7400000,
+      "overdue_receivables": 550000,
+      "break_even_occupancy_pct": 60
+    },
+    {
+      "name": "Centre C",
+      "revenue": 600000,
+      "direct_costs": 620000,
+      "seat_capacity": 120,
+      "occupied_seats": 71,
+      "capex": 6400000,
+      "overdue_receivables": 800000,
+      "break_even_occupancy_pct": 68
+    }
+  ],
+  "deal": {
+    "client": "Test Client Pvt Ltd",
+    "centre": "Suits Workspaces Jaipur",
+    "seats": 25,
+    "standard_price_per_seat": 8000,
+    "proposed_price_per_seat": 6500,
+    "monthly_operating_cost": 87500,
+    "capex": 500000,
+    "broker_commission": 150000,
+    "lock_in_months": 12,
+    "free_period_days": 30,
+    "setup_recovery": 0
+  },
+  "expansion": {
+    "name": "Proposed New Centre",
+    "capex": 24000000,
+    "deposits": 6000000,
+    "projected_monthly_ebitda": 900000,
+    "proposed_debt_emi": 684000,
+    "anchor_clients_signed": 0
+  },
+  "governance_items": [
+    "Document INR 35 lakh founder loan",
+    "Complete related-party resolutions",
+    "Ring-fence GST/TDS reserve",
+    "Separate security deposits from operating cash",
+    "Approve expansion only after anchor clients and funding confirmation"
+  ]
+}
