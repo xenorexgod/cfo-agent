@@ -1,0 +1,11 @@
+[project]
+name = "cfo-agent"
+version = "0.1.0"
+description = "CFO/CFA report generator for workspace operating companies."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Suits Workspaces" }]
+dependencies = []
+
+[project.scripts]
+cfo-agent = "cfo_agent.cli:main"
