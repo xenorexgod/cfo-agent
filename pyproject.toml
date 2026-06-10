@@ -9,3 +9,4 @@ dependencies = []
 
 [project.scripts]
 cfo-agent = "cfo_agent.cli:main"
+cfo-agent-mcp = "cfo_agent.mcp_server:main"
